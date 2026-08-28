@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obračun plate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F6FA;
+    --ink:#1B2233;
+    --ink-soft:#5B6478;
+    --line:#E2E5EE;
+    --card:#FFFFFF;
+    --indigo:#4338CA;
+    --indigo-soft:#EEF0FD;
+    --teal:#0D9488;
+    --teal-soft:#E6F7F5;
+    --amber:#B45309;
+    --amber-soft:#FEF3E2;
+    --shadow: 0 1px 2px rgba(27,34,51,0.04), 0 12px 32px -16px rgba(27,34,51,0.18);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(800px 400px at 100% -10%, #E9E9FB 0%, transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    min-height:100vh;
+    padding:20px 14px 40px;
+  }
+
+  .wrap{
+    max-width:520px;
+    margin:0 auto;
+  }
+
+  header{
+    margin-bottom:20px;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--indigo);
+    background:var(--indigo-soft);
+    padding:5px 10px;
+    border-radius:100px;
+    margin-bottom:12px;
+    font-weight:600;
+  }
+  .eyebrow::before{
+    content:'';
+    width:6px;height:6px;border-radius:50%;
+    background:var(--indigo);
+    flex-shrink:0;
+  }
+  h1{
+    font-size:22px;
+    font-weight:800;
+    letter-spacing:-0.02em;
+    margin:0 0 6px;
+  }
+  header p{
+    color:var(--ink-soft);
+    margin:0;
+    font-size:14px;
+    line-height:1.4;
+  }
+
+  .grid{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    padding:18px;
+  }
+
+  .card h2{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .auto-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    text-transform:none;
+    letter-spacing:0;
+    font-weight:600;
+    color:var(--teal);
+    background:var(--teal-soft);
+    padding:4px 8px;
+    border-radius:100px;
+  }
+  .auto-badge::before{
+    content:'⟳';
+    font-size:11px;
+  }
+
+  .field{
+    margin-bottom:14px;
+  }
+  .field:last-child{
+    margin-bottom:0;
+  }
+  .field label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:6px;
+    color:var(--ink);
+  }
+  .field .hint{
+    font-size:12px;
+    color:var(--ink-soft);
+    font-weight:400;
+    margin-left:4px;
+  }
+  .field-hint{
+    font-size:12px;
+    color:#9CA3B4;
+    margin-top:5px;
+    line-height:1.35;
+  }
+  .field input, .field select{
+    width:100%;
+    padding:13px 12px;
+    border-radius:10px;
+    border:1.5px solid var(--line);
+    font-family:'JetBrains Mono',monospace;
+    font-size:16px;
+    font-weight:500;
+    color:var(--ink);
+    background:#FBFBFD;
+    transition:border-color .15s, box-shadow .15s;
+    -webkit-appearance:none;
+    appearance:none;
+  }
+  .field select{
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%235B6478' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+    padding-right:34px;
+  }
+  .field input:focus, .field select:focus{
+    outline:none;
+    border-color:var(--indigo);
+    box-shadow:0 0 0 3px rgba(67,56,202,0.12);
+    background-color:#fff;
+  }
+
+  .divider{
+    height:1px;
+    background:var(--line);
+    margin:16px 0;
+  }
+
+  /* payslip / receipt style */
+  .payslip-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:4px;
+  }
+  .payslip-head .mesec-badge{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--indigo);
+  }
+  .total-box{
+    background: linear-gradient(135deg, #4338CA 0%, #4F46E5 55%, #6D5EF0 100%);
+    border-radius:14px;
+    padding:18px 18px;
+    color:#fff;
+    margin-bottom:18px;
+    box-shadow: 0 14px 28px -14px rgba(67,56,202,0.55);
+  }
+  .total-box .label{
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    opacity:0.8;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .total-box .value{
+    font-family:'JetBrains Mono',monospace;
+    font-size:30px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    word-break:break-word;
+  }
+  .total-box .value span{
+    font-size:16px;
+    font-weight:600;
+    opacity:0.85;
+    margin-left:4px;
+  }
+
+  .ledger{
+    border:1px dashed var(--line);
+    border-radius:14px;
+    padding:6px 4px;
+  }
+  .ledger-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:11px 12px;
+    font-size:13.5px;
+    border-bottom:1px dashed var(--line);
+  }
+  .ledger-row:last-child{border-bottom:none;}
+  .ledger-row .l-name{
+    color:var(--ink-soft);
+    font-weight:500;
+  }
+  .ledger-row .l-sub{
+    display:block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:#9CA3B4;
+    margin-top:2px;
+  }
+  .ledger-row .l-val{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600;
+    text-align:right;
+    white-space:nowrap;
+  }
+  .ledger-row.tag-overtime .l-val{color:var(--amber);}
+  .ledger-row.tag-weekend .l-val{color:var(--teal);}
+
+  .flags{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+    flex-wrap:wrap;
+  }
+  .flag{
+    font-size:11.5px;
+    font-weight:600;
+    padding:5px 9px;
+    border-radius:8px;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .flag.ok{ background:var(--teal-soft); color:var(--teal); }
+  .flag.warn{ background:var(--amber-soft); color:var(--amber); }
+
+  footer{
+    text-align:center;
+    color:#A2A9BC;
+    font-size:12px;
+    margin-top:34px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Obračun zarade</div>
+    <h1>Kalkulator plate</h1>
+    <p>Unesi mesec i odrađene sate — obračun se ažurira automatski.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- LEFT: FORM -->
+    <div class="card">
+      <h2>Podaci za obračun</h2>
+
+      <div class="field">
+        <label for="mesec">Mesec</label>
+        <select id="mesec"></select>
+      </div>
+
+      <div class="field">
+        <label for="dani">Radni dani</label>
+        <input type="number" inputmode="numeric" id="dani" min="0" step="1">
+        <div class="field-hint">Upiši broj radnih dana koje si imao/la u ovom mesecu.</div>
+      </div>
+
+      <div class="field">
+        <label for="cena">Cena radnog sata <span class="hint">din.</span></label>
+        <input type="number" inputmode="numeric" id="cena" min="0" step="1">
+        <div class="field-hint">Upiši cenu jednog redovnog radnog sata u dinarima.</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label for="subota">Sati — subotom</label>
+        <input type="number" inputmode="decimal" id="subota" min="0" step="0.5">
+        <div class="field-hint">Upiši koliko sati si ukupno radio/la subotom.</div>
+      </div>
+
+      <div class="field">
+        <label for="nedelja">Sati — nedeljom</label>
+        <input type="number" inputmode="decimal" id="nedelja" min="0" step="0.5">
+        <div class="field-hint">Upiši koliko sati si ukupno radio/la nedeljom.</div>
+      </div>
+
+      <div class="field">
+        <label for="ukupno">Ukupno odrađenih sati <span class="hint">(ceo mesec, sa vikendom)</span></label>
+        <input type="number" inputmode="decimal" id="ukupno" min="0" step="0.5">
+        <div class="field-hint">Upiši ukupan broj sati odrađenih u mesecu, uključujući subote i nedelje.</div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: PAYSLIP -->
+    <div class="card payslip">
+      <h2>Obračunski list <span class="auto-badge">automatski</span></h2>
+
+      <div class="payslip-head">
+        <span class="mesec-badge" id="mesecBadge">—</span>
+        <span class="mesec-badge" id="daniBadge">— radnih dana</span>
+      </div>
+
+      <div class="total-box">
+        <div class="label">Ukupna plata</div>
+        <div class="value" id="ukupnaPlata">0<span>din.</span></div>
+      </div>
+
+      <div class="ledger">
+        <div class="ledger-row">
+          <span class="l-name">Redovni sati
+            <span class="l-sub" id="subRedovno">— × —</span>
+          </span>
+          <span class="l-val" id="iznosRedovno">0 din.</span>
+        </div>
+        <div class="ledger-row tag-overtime">
+          <span class="l-name">Prekovremeno
+            <span class="l-sub" id="subPreko">— × —</span>
+          </span>
+          <span class="l-val" id="iznosPreko">0 din.</span>
+        </div>
+        <div class="ledger-row tag-weekend">
+          <span class="l-name">Subote
+            <span class="l-sub" id="subSubota">— × — × 0.3</span>
+          </span>
+          <span class="l-val" id="iznosSubota">0 din.</span>
+        </div>
+        <div class="ledger-row tag-weekend">
+          <span class="l-name">Nedelje
+            <span class="l-sub" id="subNedelja">— × — × 0.5</span>
+          </span>
+          <span class="l-val" id="iznosNedelja">0 din.</span>
+        </div>
+      </div>
+
+      <div class="flags" id="flags"></div>
+    </div>
+
+  </div>
+
+  <footer>Norma sati po mesecu je unapred definisana državnim kalendarom rada za 2026.</footer>
+</div>
+
+<script>
+  const MESECI = [
+    { naziv: "Januar 2026.",    norma: 176 },
+    { naziv: "Februar 2026.",   norma: 160 },
+    { naziv: "Mart 2026.",      norma: 176 },
+    { naziv: "April 2026.",     norma: 176 },
+    { naziv: "Maj 2026.",       norma: 168 },
+    { naziv: "Jun 2026.",       norma: 176 },
+    { naziv: "Jul 2026.",       norma: 184 },
+    { naziv: "Avgust 2026.",    norma: 168 },
+    { naziv: "Septembar 2026.", norma: 176 },
+    { naziv: "Oktobar 2026.",   norma: 176 },
+    { naziv: "Novembar 2026.",  norma: 168 },
+    { naziv: "Decembar 2026.",  norma: 184 },
+  ];
+
+  const $ = id => document.getElementById(id);
+  const mesecSelect = $('mesec');
+
+  MESECI.forEach((m, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = m.naziv;
+    mesecSelect.appendChild(opt);
+  });
+  // default: current-ish month for the example (Jul)
+  mesecSelect.value = 6;
+
+  const fmt = n => {
+    if (!isFinite(n)) n = 0;
+    return Math.round(n).toLocaleString('sr-RS');
+  };
+
+  function izracunaj(){
+    const mesecIdx = parseInt(mesecSelect.value, 10);
+    const mesec = MESECI[mesecIdx];
+    const norma = mesec.norma;
+
+    const dani     = parseFloat($('dani').value)    || 0;
+    const cena     = parseFloat($('cena').value)    || 0;
+    const subota   = parseFloat($('subota').value)  || 0;
+    const nedelja  = parseFloat($('nedelja').value) || 0;
+    const ukupno   = parseFloat($('ukupno').value)  || 0;
+
+    const cenaPrekovremeno = cena * 1.3;
+
+    const redovnoSati = Math.min(ukupno, norma);
+    const prekoSati   = Math.max(ukupno - norma, 0);
+
+    const iznosRedovno  = redovnoSati * cena;
+    const iznosPreko    = prekoSati * cenaPrekovremeno;
+    const iznosSubota   = subota * cena * 0.3;
+    const iznosNedelja  = nedelja * cena * 0.5;
+
+    const ukupnaPlata = iznosRedovno + iznosPreko + iznosSubota + iznosNedelja;
+
+    // render
+    $('mesecBadge').textContent = mesec.naziv;
+    $('daniBadge').textContent = (dani || '—') + ' radnih dana';
+
+    $('ukupnaPlata').innerHTML = fmt(ukupnaPlata) + '<span>din.</span>';
+
+    $('subRedovno').textContent = `${fmt(redovnoSati)} h × ${fmt(cena)} din.`;
+    $('iznosRedovno').textContent = fmt(iznosRedovno) + ' din.';
+
+    $('subPreko').textContent = `${fmt(prekoSati)} h × ${fmt(cenaPrekovremeno)} din.`;
+    $('iznosPreko').textContent = fmt(iznosPreko) + ' din.';
+
+    $('subSubota').textContent = `${fmt(subota)} h × ${fmt(cena)} × 0.3`;
+    $('iznosSubota').textContent = fmt(iznosSubota) + ' din.';
+
+    $('subNedelja').textContent = `${fmt(nedelja)} h × ${fmt(cena)} × 0.5`;
+    $('iznosNedelja').textContent = fmt(iznosNedelja) + ' din.';
+
+    // flags
+    const flags = $('flags');
+    flags.innerHTML = '';
+    if (prekoSati > 0){
+      const f = document.createElement('span');
+      f.className = 'flag warn';
+      f.textContent = `+${fmt(prekoSati)}h prekovremeno`;
+      flags.appendChild(f);
+    }
+    if (ukupno > 0 && ukupno < norma){
+      const f = document.createElement('span');
+      f.className = 'flag warn';
+      f.textContent = `${fmt(norma - ukupno)}h manje od norme`;
+      flags.appendChild(f);
+    }
+    if (ukupno >= norma && prekoSati === 0){
+      const f = document.createElement('span');
+      f.className = 'flag ok';
+      f.textContent = 'Norma ispunjena';
+      flags.appendChild(f);
+    }
+  }
+
+  ['dani','cena','subota','nedelja','ukupno'].forEach(id => {
+    $(id).addEventListener('input', izracunaj);
+    $(id).addEventListener('focus', function(){
+      if (this.value === '0') this.value = '';
+    });
+    $(id).addEventListener('blur', function(){
+      if (this.value === '') { this.value = '0'; izracunaj(); }
+    });
+  });
+  mesecSelect.addEventListener('change', izracunaj);
+
+  // sva unosiva polja kreću od 0 - korisnik popunjava svoje podatke
+  $('dani').value = 0;
+  $('cena').value = 0;
+  $('subota').value = 0;
+  $('nedelja').value = 0;
+  $('ukupno').value = 0;
+
+  izracunaj();
+</script>
+</body>
+</html>
