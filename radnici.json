@@ -68,5 +68,240 @@
     "jmbg": "1802987665128",
     "ime": "Ruth Muthoni Thuo",
     "cena": 360
+  },
+  {
+    "jmbg": "0202975895078",
+    "ime": "Gordana Kozenko",
+    "cena": 570
+  },
+  {
+    "jmbg": "2806975895035",
+    "ime": "Dragana Obrenović",
+    "cena": 625
+  },
+  {
+    "jmbg": "2608985895010",
+    "ime": "Jelena Pekovic",
+    "cena": 470
+  },
+  {
+    "jmbg": "0311967895011",
+    "ime": "Nada Gvozdenovic",
+    "cena": 465
+  },
+  {
+    "jmbg": "1905968895024",
+    "ime": "Dragana Topalović",
+    "cena": 505
+  },
+  {
+    "jmbg": "3009974895038",
+    "ime": "Milica Milanovic",
+    "cena": 500
+  },
+  {
+    "jmbg": "0706963895011",
+    "ime": "Gorica Sojic",
+    "cena": 500
+  },
+  {
+    "jmbg": "1804973355401",
+    "ime": "Biljana Drobac",
+    "cena": 480
+  },
+  {
+    "jmbg": "1711998890192",
+    "ime": "Igor Poljaković",
+    "cena": 530
+  },
+  {
+    "jmbg": "0102966895036",
+    "ime": "Ljilja Popović",
+    "cena": 510
+  },
+  {
+    "jmbg": "2102970895013",
+    "ime": "Biljana Vučanović",
+    "cena": 440
+  },
+  {
+    "jmbg": "2803975895036",
+    "ime": "Zorica Raca",
+    "cena": 465
+  },
+  {
+    "jmbg": "1607976890049",
+    "ime": "Duško Rebić",
+    "cena": 910
+  },
+  {
+    "jmbg": "0805985895021",
+    "ime": "Verica Tukeric",
+    "cena": 600
+  },
+  {
+    "jmbg": "2508985388904",
+    "ime": "Ruzica Sekulic",
+    "cena": 665
+  },
+  {
+    "jmbg": "1410973895033",
+    "ime": "Nevena Nerandžić",
+    "cena": 475
+  },
+  {
+    "jmbg": "0810978346105",
+    "ime": "Milica Erdeljan",
+    "cena": 630
+  },
+  {
+    "jmbg": "1009978188134",
+    "ime": "Nada Simic",
+    "cena": 535
+  },
+  {
+    "jmbg": "0810981796014",
+    "ime": "Gordana Savić",
+    "cena": 590
+  },
+  {
+    "jmbg": "1602980186516",
+    "ime": "Amela Osmic",
+    "cena": 570
+  },
+  {
+    "jmbg": "1712997890071",
+    "ime": "Nikola Vasilijević",
+    "cena": 495
+  },
+  {
+    "jmbg": "1511975890021",
+    "ime": "Luka Zec",
+    "cena": 490
+  },
+  {
+    "jmbg": "2207003890008",
+    "ime": "Miloš Nedeljković",
+    "cena": 445
+  },
+  {
+    "jmbg": "1208975895037",
+    "ime": "Vesna Radojčić",
+    "cena": 475
+  },
+  {
+    "jmbg": "1008994890128",
+    "ime": "Borislav Vujinovic",
+    "cena": 430
+  },
+  {
+    "jmbg": "2911975890031",
+    "ime": "Mladen Gregus",
+    "cena": 470
+  },
+  {
+    "jmbg": "2003969128590",
+    "ime": "Desa Djuric",
+    "cena": 445
+  },
+  {
+    "jmbg": "0011097895038",
+    "ime": "Dragana Sekulić",
+    "cena": 500
+  },
+  {
+    "jmbg": "2410971895021",
+    "ime": "Sladjana Vladisavljević",
+    "cena": 510
+  },
+  {
+    "jmbg": "0408965895050",
+    "ime": "Marija Devečerski",
+    "cena": 415
+  },
+  {
+    "jmbg": "1407985723210",
+    "ime": "Zoran Kostić",
+    "cena": 525
+  },
+  {
+    "jmbg": "0000000000000",
+    "ime": "Zeynab Jumazade",
+    "cena": 475
+  },
+  {
+    "jmbg": "1705989760022",
+    "ime": "Nemanja Vranić",
+    "cena": 530
+  },
+  {
+    "jmbg": "2305995895156",
+    "ime": "Verica Stanković",
+    "cena": 525
+  },
+  {
+    "jmbg": "2312973895043",
+    "ime": "Marina Živanić",
+    "cena": 490
+  },
+  {
+    "jmbg": "0909992890000",
+    "ime": "Zoran Ferdoš",
+    "cena": 460
+  },
+  {
+    "jmbg": "1207005895011",
+    "ime": "Tijana Vislavski",
+    "cena": 530
+  },
+  {
+    "jmbg": "0901995880188",
+    "ime": "Rade Ignjatović",
+    "cena": 480
+  },
+  {
+    "jmbg": "1106003895005",
+    "ime": "Danijela Vislavski",
+    "cena": 530
+  },
+  {
+    "jmbg": "2104984895000",
+    "ime": "Jovana Mehuljić",
+    "cena": 490
+  },
+  {
+    "jmbg": "2906978885019",
+    "ime": "Jelena Novaković",
+    "cena": 460
+  },
+  {
+    "jmbg": "1510985895009",
+    "ime": "Danka Jelić",
+    "cena": 410
+  },
+  {
+    "jmbg": "2410995885167",
+    "ime": "Danijela Krstić",
+    "cena": 460
+  },
+  {
+    "jmbg": "2608996890177",
+    "ime": "Vuk Ivanov",
+    "cena": 430
+  },
+  {
+    "jmbg": "0605008890012",
+    "ime": "Nemanja Antal",
+    "cena": 475
+  },
+  {
+    "jmbg": "0309994665042",
+    "ime": "Maria Zilić",
+    "cena": 360
+  },
+  {
+    "jmbg": "1308997890157",
+    "ime": "Stefan Mergl",
+    "cena": 360
   }
 ]
