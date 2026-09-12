@@ -277,115 +277,6 @@
   .flag.ok{ background:var(--teal-soft); color:var(--teal); }
   .flag.warn{ background:var(--amber-soft); color:var(--amber); }
 
-  .tabs{
-    display:flex;
-    gap:6px;
-    background:#EDEEF5;
-    padding:4px;
-    border-radius:12px;
-    margin-bottom:18px;
-  }
-  .tab-btn{
-    flex:1;
-    border:none;
-    background:transparent;
-    padding:10px 8px;
-    border-radius:9px;
-    font-family:'Inter',sans-serif;
-    font-size:13.5px;
-    font-weight:600;
-    color:var(--ink-soft);
-    cursor:pointer;
-    transition:background .15s, color .15s;
-  }
-  .tab-btn.active{
-    background:#fff;
-    color:var(--indigo);
-    box-shadow:0 1px 3px rgba(27,34,51,0.12);
-  }
-  .tab-panel{ display:none; }
-  .tab-panel.active{ display:block; }
-
-  .lookup-row{
-    display:flex;
-    gap:8px;
-  }
-  .lookup-row input{ flex:1; }
-  .btn{
-    border:none;
-    background:var(--indigo);
-    color:#fff;
-    font-family:'Inter',sans-serif;
-    font-weight:600;
-    font-size:14px;
-    padding:0 18px;
-    border-radius:10px;
-    cursor:pointer;
-    transition:background .15s, transform .1s;
-    white-space:nowrap;
-  }
-  .btn:active{ transform:scale(0.97); }
-  .btn:hover{ background:#372DB0; }
-  .btn.secondary{
-    background:var(--teal-soft);
-    color:var(--teal);
-    width:100%;
-    margin-top:14px;
-    padding:12px;
-  }
-  .btn.secondary:hover{ background:#D9F1EE; }
-
-  .lookup-result{
-    margin-top:16px;
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:16px;
-    display:none;
-  }
-  .lookup-result.show{ display:block; }
-  .lookup-result .name{
-    font-size:17px;
-    font-weight:700;
-    margin-bottom:2px;
-  }
-  .lookup-result .jmbg-echo{
-    font-family:'JetBrains Mono',monospace;
-    font-size:12px;
-    color:var(--ink-soft);
-    margin-bottom:14px;
-  }
-  .lookup-result .rate-box{
-    background:var(--teal-soft);
-    border-radius:10px;
-    padding:12px 14px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-  }
-  .lookup-result .rate-box .l{
-    font-size:12px;
-    font-weight:600;
-    color:var(--teal);
-    text-transform:uppercase;
-    letter-spacing:0.04em;
-  }
-  .lookup-result .rate-box .v{
-    font-family:'JetBrains Mono',monospace;
-    font-size:19px;
-    font-weight:700;
-    color:var(--teal);
-  }
-  .lookup-msg{
-    margin-top:14px;
-    font-size:13px;
-    padding:11px 13px;
-    border-radius:10px;
-    display:none;
-  }
-  .lookup-msg.show{ display:block; }
-  .lookup-msg.error{ background:var(--amber-soft); color:var(--amber); }
-  .lookup-msg.info{ background:var(--indigo-soft); color:var(--indigo); }
-
   footer{
     text-align:center;
     color:#A2A9BC;
@@ -403,12 +294,6 @@
     <p>Unesi mesec i odrađene sate — obračun se ažurira automatski.</p>
   </header>
 
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="kalkulator">Kalkulator</button>
-    <button class="tab-btn" data-tab="provera">Provera cene sata</button>
-  </div>
-
-  <div class="tab-panel active" id="tab-kalkulator">
   <div class="grid">
 
     <!-- LEFT: FORM -->
@@ -429,7 +314,7 @@
       <div class="field">
         <label for="cena">Cena radnog sata <span class="hint">din.</span></label>
         <input type="number" inputmode="numeric" id="cena" min="0" step="1">
-        <div class="field-hint">Upiši cenu jednog redovnog radnog sata u dinarima, ili je preuzmi iz taba "Provera cene sata".</div>
+        <div class="field-hint">Upiši cenu jednog redovnog radnog sata u dinarima.</div>
       </div>
 
       <div class="divider"></div>
@@ -499,33 +384,6 @@
     </div>
 
   </div>
-  </div>
-
-  <div class="tab-panel" id="tab-provera">
-    <div class="card">
-      <h2>Provera cene radnog sata</h2>
-      <div class="field">
-        <label for="jmbgInput">JMBG</label>
-        <div class="lookup-row">
-          <input type="text" inputmode="numeric" maxlength="13" id="jmbgInput" placeholder="13 cifara">
-          <button class="btn" id="proveriBtn">Proveri</button>
-        </div>
-        <div class="field-hint">Unesi svoj JMBG da vidiš svoju trenutnu cenu radnog sata.</div>
-      </div>
-
-      <div class="lookup-msg" id="lookupMsg"></div>
-
-      <div class="lookup-result" id="lookupResult">
-        <div class="name" id="rezIme">—</div>
-        <div class="jmbg-echo" id="rezJmbg">—</div>
-        <div class="rate-box">
-          <span class="l">Cena radnog sata</span>
-          <span class="v" id="rezCena">0 din.</span>
-        </div>
-        <button class="btn secondary" id="prenesiBtn">Prenesi cenu u kalkulator →</button>
-      </div>
-    </div>
-  </div>
 
   <footer>Norma sati po mesecu je unapred definisana državnim kalendarom rada za 2026.</footer>
 </div>
@@ -556,23 +414,7 @@
     mesecSelect.appendChild(opt);
   });
   // default: current-ish month for the example (Jul)
-  // default: prethodni mesec u odnosu na tekući datum (npr. septembar -> avgust)
-  (function odaberiPrethodniMesec(){
-    const nazivi = ["Januar","Februar","Mart","April","Maj","Jun","Jul","Avgust","Septembar","Oktobar","Novembar","Decembar"];
-    const danas = new Date();
-    let prevMonth = danas.getMonth() - 1; // 0 = januar tekućeg meseca -> -1
-    let prevYear = danas.getFullYear();
-    if (prevMonth < 0){ prevMonth = 11; prevYear -= 1; }
-
-    const trazenNaziv = `${nazivi[prevMonth]} ${prevYear}.`;
-    let idx = MESECI.findIndex(m => m.naziv === trazenNaziv);
-
-    if (idx === -1){
-      // fallback: ako godina nije u tabeli, pokušaj samo po nazivu meseca
-      idx = MESECI.findIndex(m => m.naziv.startsWith(nazivi[prevMonth]));
-    }
-    mesecSelect.value = idx !== -1 ? idx : 6;
-  })();
+  mesecSelect.value = 6;
 
   const fmt = n => {
     if (!isFinite(n)) n = 0;
@@ -662,78 +504,6 @@
   $('ukupno').value = 0;
 
   izracunaj();
-
-  // ---- TAB NAVIGACIJA ----
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      $('tab-' + btn.dataset.tab).classList.add('active');
-    });
-  });
-
-  // ---- PROVERA CENE PO JMBG-u ----
-  let radniciCache = null;
-
-  async function ucitajRadnike(){
-    if (radniciCache) return radniciCache;
-    const res = await fetch('./radnici.json', { cache: 'no-store' });
-    if (!res.ok) throw new Error('ne moze da se ucita');
-    radniciCache = await res.json();
-    return radniciCache;
-  }
-
-  function prikaziPoruku(text, tip){
-    const el = $('lookupMsg');
-    el.textContent = text;
-    el.className = 'lookup-msg show ' + tip;
-  }
-  function sakrijPoruku(){
-    $('lookupMsg').className = 'lookup-msg';
-  }
-
-  let poslednjaCena = 0;
-
-  async function proveriJmbg(){
-    const jmbg = $('jmbgInput').value.trim();
-    $('lookupResult').classList.remove('show');
-    sakrijPoruku();
-
-    if (!/^\d{13}$/.test(jmbg)){
-      prikaziPoruku('JMBG mora imati tačno 13 cifara.', 'error');
-      return;
-    }
-
-    let radnici;
-    try{
-      radnici = await ucitajRadnike();
-    }catch(e){
-      prikaziPoruku('Podaci trenutno nisu dostupni. Ova funkcija radi samo kada je stranica otvorena preko interneta (npr. GitHub Pages), ne i direktno sa fajla na računaru.', 'error');
-      return;
-    }
-
-    const rec = radnici.find(r => String(r.jmbg) === jmbg);
-    if (!rec){
-      prikaziPoruku('JMBG nije pronađen u sistemu. Proveri unos ili se obrati administratoru.', 'error');
-      return;
-    }
-
-    poslednjaCena = Number(rec.cena) || 0;
-    $('rezIme').textContent = rec.ime;
-    $('rezJmbg').textContent = 'JMBG: ' + rec.jmbg;
-    $('rezCena').textContent = fmt(poslednjaCena) + ' din.';
-    $('lookupResult').classList.add('show');
-  }
-
-  $('proveriBtn').addEventListener('click', proveriJmbg);
-  $('jmbgInput').addEventListener('keydown', e => { if (e.key === 'Enter') proveriJmbg(); });
-
-  $('prenesiBtn').addEventListener('click', () => {
-    $('cena').value = poslednjaCena;
-    izracunaj();
-    document.querySelector('.tab-btn[data-tab="kalkulator"]').click();
-  });
 </script>
 </body>
 </html>
